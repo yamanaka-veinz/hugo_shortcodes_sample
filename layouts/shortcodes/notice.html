@@ -1,1 +1,59 @@
-/Users/yamanakaakihiro/Documents/gitlab/techblog/layouts/shortcodes/notice.html
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+{{- $type:= .Get "type" -}}
+{{- if not $type -}}
+  <!-- default type -->
+  {{ $type = "undefined" -}}
+{{- end -}}
+
+{{- $headercolor := "" -}}
+{{- $maincolor := "" -}}
+{{- $headertext := "" -}}
+{{- $icon := "" -}}
+
+{{- if eq $type "note" -}}
+{{ $headercolor = "#6ab0de" }}
+{{ $maincolor = "#e7f2fa" }}
+{{ $headertext = "Note" }}
+{{ $icon = "edit" }}
+
+{{- else if eq $type "info" -}}
+{{ $headercolor = "#f0b37e" }}
+{{ $maincolor = "#fff2db" }}
+{{ $headertext = "Info" }}
+{{ $icon = "info" }}
+
+{{- else if eq $type "tips" -}}
+{{ $headercolor = "#53ad53" }}
+{{ $maincolor = "#e6f9e6" }}
+{{ $headertext = "Tips" }}
+{{ $icon = "check_circle" }}
+
+{{- else if eq $type "warn" -}}
+{{ $headercolor = "#cf5d58" }}
+{{ $maincolor = "#fae2e2" }}
+{{ $headertext = "Warning" }}
+{{ $icon = "warning" }}
+
+{{- else -}}
+{{ $headercolor = "#999999" }}
+{{ $maincolor = "#dddddd" }}
+{{ $headertext = "Undefined" }}
+{{ $icon = "help" }}
+
+{{- end -}}
+
+
+<div style="padding: 0.25em; color: #fff; background-color: {{ $headercolor }}; border: 1px solid transparent;">
+  <div style="display: flex;align-items: center;">
+    <span class="material-icons" style="font-size: 18px;">
+      {{ $icon }}
+    </span>
+    &nbsp;
+    {{ $headertext }}    
+  </div>
+</div>
+
+<div style="padding: 0.75em; margin-bottom: 1rem; color: #666; background-color: {{ $maincolor }}; border: 1px solid transparent;">
+  {{- .Inner -}}
+</div>
